@@ -14,6 +14,7 @@ namespace CustomerSupport.API.Extensions
             // Whenever an unhandled exception occurs during request processing,
             // ASP.NET Core can pass that exception to GlobalExceptionHandler.
             services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
 
             // Return IServiceCollection so that additional services
             // can be registered using method chaining.
