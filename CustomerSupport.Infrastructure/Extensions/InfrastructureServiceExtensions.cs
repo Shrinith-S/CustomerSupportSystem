@@ -1,6 +1,8 @@
-﻿using CustomerSupport.Infrastructure.Data;
-using Microsoft.Extensions.DependencyInjection;
+﻿using CustomerSupport.Application.Interfaces.Repositories;
+using CustomerSupport.Infrastructure.Data;
+using CustomerSupport.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CustomerSupport.Infrastructure.Extensions
 {
@@ -15,7 +17,16 @@ namespace CustomerSupport.Infrastructure.Extensions
                 options.UseSqlServer(connectionString);
             });
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ITicketCategoryRepository, TicketCategoryRepository>();
+            services.AddScoped<ITicketPriorityRepository, TicketPriorityRepository>();
+            services.AddScoped<ITicketStatusRepository, TicketStatusRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
+
             return services;
         }
     }
 }
+

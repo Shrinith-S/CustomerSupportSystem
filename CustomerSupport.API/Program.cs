@@ -1,5 +1,5 @@
 using CustomerSupport.Infrastructure.Extensions;
-using CustomerSupport.API.Extensions;
+using CustomerSupport.Application.Extensions;
 
 namespace CustomerSupport.API
 {
@@ -20,10 +20,7 @@ namespace CustomerSupport.API
 
             builder.Services.AddInfrastructureServices(connectionString);
 
-            // Register the application's global exception handler.
-            // This allows unhandled exceptions from the application
-            // to be processed by GlobalExceptionHandler.
-            builder.Services.AddGlobalExceptionHandling();
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
@@ -33,14 +30,7 @@ namespace CustomerSupport.API
                 app.MapOpenApi();
             }
 
-            // Add the global exception handling middleware to the HTTP request pipeline.
-            // When an unhandled exception occurs,
-            // ASP.NET Core forwards it to the registered exception handler.
-            app.UseExceptionHandler();
-
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
 
             app.MapControllers();
 
@@ -48,4 +38,3 @@ namespace CustomerSupport.API
         }
     }
 }
-
